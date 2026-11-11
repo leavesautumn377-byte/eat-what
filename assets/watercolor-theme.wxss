@@ -1,0 +1,108 @@
+page { background: #f2f5eb; color: #355d49; font-family: MealWenKai, "STKaiti", "KaiTi", serif; }
+view, text, button, input, textarea { font-family: MealWenKai, "STKaiti", "KaiTi", serif; }
+.page { padding: 26rpx 32rpx calc(150rpx + env(safe-area-inset-bottom)); }
+.page .paper-texture { opacity: 1; }
+.page-list .paper-texture, .page-records .paper-texture { opacity: 0.19; }
+.page > .card, .page > .list-heading, .page > .local-hint { z-index: 1; }
+.page .card { padding: 28rpx 4rpx; background: rgba(249, 251, 246, 0.62); border-color: rgba(103, 148, 111, 0.30); }
+.page-list .card, .page-records .card { background: rgba(249, 251, 246, 0.74); }
+.page .hero-card { min-height: 570rpx; padding-top: 12rpx; padding-bottom: 0; border: 0; background: transparent; }
+.page .hero-card .title { color: #557a60; font-size: 34rpx; font-weight: 400; letter-spacing: 3rpx; margin: 0 0 4rpx; }
+.page .hero-card .subtitle { color: #6a8b73; font-size: 24rpx; max-width: 590rpx; line-height: 1.5; }
+.page .title, .page .section-title, .page .section-subtitle, .page .meal-name, .page .record-name, .page .result-name, .page .stats-value, .page .stats-favorite { color: #355d49; font-weight: 400; font-family: MealWenKai, "STKaiti", serif; }
+.page .title { font-size: 76rpx; }
+.page .section-title { font-size: 48rpx; margin-bottom: 20rpx; }
+.page .section-subtitle { font-size: 40rpx; margin-top: 27rpx; }
+.page .subtitle, .page .helper, .page .meta-text, .page .meal-location, .page .record-meta, .page .record-time { color: #688572; font-family: MealWenKai, "STKaiti", serif; }
+.page .soft-label, .page .summary-card .soft-label, .page .result-shell .section-title { color: #c87972; }
+.page .btn-primary, .page .btn-light {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  min-height: 100rpx;
+  line-height: 1.25;
+  padding: 20rpx 36rpx;
+  font-size: 42rpx;
+  font-weight: 400;
+  letter-spacing: 1rpx;
+  color: #335e42;
+  border: 0;
+  border-bottom: 1rpx solid #9dbba4;
+  border-radius: 0;
+  background: linear-gradient(90deg, rgba(247, 250, 244, 0.79), rgba(226, 238, 224, 0.74) 50%, rgba(247, 250, 244, 0.79));
+  box-shadow: none;
+}
+.page .btn-small { min-height: 76rpx; padding: 10rpx 24rpx; font-size: 34rpx; }
+.page .action-btn { line-height: 1.25; font-family: MealWenKai, "STKaiti", serif; font-size: 42rpx; }
+.page .full-button, .page .save-btn, .page-list .form-actions .btn-primary {
+  min-height: 114rpx;
+  font-size: 48rpx;
+  color: #315b42;
+  border-top: 1rpx solid #c3d9c6;
+  border-bottom: 2rpx solid #8caf94;
+  background: linear-gradient(90deg, rgba(229, 240, 228, 0.73), rgba(191, 217, 195, 0.85) 50%, rgba(229, 240, 228, 0.73));
+}
+.page .filter-card, .page .pill {
+  color: #426b50;
+  background: transparent;
+  border: 0;
+  border-bottom: 1rpx solid transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+.page .filter-card-active, .page .pill-active { background: linear-gradient(0deg, rgba(207, 229, 205, 0.7), transparent 75%); border-color: #92ad98; box-shadow: none; }
+.page .filter-card-title, .page .filter-card-active .filter-card-title, .page .pill { color: #426b50; font-size: 34rpx; font-weight: 400; }
+.page .filter-grid-tags { gap: 22rpx 22rpx; }
+.page .filter-grid-tags .filter-card { min-height: 84rpx; padding: 0 30rpx; }
+.page .selected-mark { color: #c87972; }
+.page .tag { color: #50745b; background: transparent; border: 0; border-radius: 0; font-size: 28rpx; padding-left: 0; }
+.page .summary-row, .page .record-panel, .page .recent-item, .page .meal-item, .page .record-card { border-color: rgba(139, 177, 146, 0.49); }
+.page .result-name, .page .meal-name, .page .record-name, .page .recent-name, .page .stats-favorite { color: #355d49; }
+.page .recent-rating, .page .record-rating { color: #b76f6a; background: rgba(244, 225, 217, 0.8); border-radius: 999rpx; }
+.page .stats-box, .page .stats-box-right, .page .record-note-block { background: rgba(240, 247, 237, 0.76); border-color: #b8d0ba; }
+.page .record-note-block { border-left-color: #cd8b83; }
+.page .input, .page .textarea { color: #355d49; background: rgba(253, 254, 250, 0.82); border-color: #a7c2aa; border-radius: 12rpx; font-size: 32rpx; }
+.page .meal-photo, .page .record-photo { border-radius: 12rpx; background: #eaf2e8; }
+.page-inner .paper-texture { opacity: 0.19; }
+.page .back-button {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: auto;
+  margin: 0 0 12rpx;
+  padding: 8rpx 0 40rpx;
+  border: 0;
+  background: transparent;
+  color: #355d49;
+  font-size: 36rpx;
+  line-height: 1.5;
+  text-align: left;
+}
+.page .back-button::after { border: 0; }
+.page .eyebrow { color: #c87972; font-size: 29rpx; letter-spacing: 2rpx; margin-bottom: 14rpx; }
+.bottom-nav {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+  border-top: 1rpx solid rgba(146, 173, 152, 0.45);
+  background: rgba(245, 248, 240, 0.96);
+}
+.bottom-nav-item {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 110rpx;
+  color: #426b50;
+  font-family: MealWenKai, "STKaiti", "KaiTi", serif;
+  font-size: 40rpx;
+  line-height: 1.3;
+}
+.bottom-nav-item text { padding: 10rpx 16rpx; }
+.bottom-nav-item-active { color: #c87972; }
+.bottom-nav-item-active text { border-bottom: 2rpx solid #c87972; }

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>今天吃什么 · 纸质风格试稿</title>
+<style>
+  :root { --paper:#f4f0e4; --ink:#334936; --red:#a94142; --line:#aab59e; }
+  * { box-sizing:border-box; }
+  body { margin:0; min-height:100vh; background:#d9d8cc; color:var(--ink); font-family:"Songti SC","Noto Serif CJK SC",serif; }
+  .stage { display:flex; justify-content:center; align-items:flex-start; padding:24px 12px; }
+  .phone { width:min(100%,390px); min-height:780px; position:relative; overflow:hidden; background:var(--paper); box-shadow:0 20px 70px #25291b28; }
+  .phone::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.16; background-image:repeating-linear-gradient(0deg,transparent 0 3px,#9b9b8170 4px,transparent 5px),repeating-linear-gradient(90deg,transparent 0 5px,#b4a88c44 6px,transparent 7px); mix-blend-mode:multiply; }
+  header { position:relative; padding:24px 26px 14px; border-bottom:1px solid #aab59e88; display:flex; align-items:baseline; justify-content:space-between; }
+  .brand { font-size:16px; letter-spacing:3px; font-weight:700; }
+  .edition { font-size:9px; letter-spacing:2px; color:#687965; }
+  main { position:relative; padding:0 26px 80px; }
+  .eyebrow { font-size:10px; letter-spacing:4px; color:var(--red); margin:31px 0 9px; }
+  h1 { font-family:"STKaiti","KaiTi","Songti SC",serif; font-size:45px; line-height:1.16; letter-spacing:3px; margin:0; font-weight:500; }
+  .sub { font-size:12px; letter-spacing:2px; color:#71806c; margin-top:13px; }
+  .art { position:relative; height:230px; margin:4px -8px 4px; display:flex; align-items:center; justify-content:center; }
+  .art::before { content:""; position:absolute; width:260px; height:148px; top:44px; left:23px; background:#d9a0a284; filter:blur(15px); border-radius:58% 42% 62% 38%; transform:rotate(-17deg); }
+  svg { position:relative; width:270px; height:230px; }
+  .result { border-top:1px solid #8da58d; border-bottom:1px solid #8da58d; padding:17px 0 20px; }
+  .small { color:var(--red); font-size:10px; letter-spacing:3px; }
+  .meal { font-family:"STKaiti","KaiTi",serif; font-size:34px; margin:8px 0 2px; }
+  .place { font-size:12px; color:#667a64; }
+  .tags { display:flex; gap:18px; font-size:11px; color:#596f59; margin-top:16px; }
+  .tags span::before { content:"· "; color:var(--red); }
+  .actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:22px; }
+  button,.upload { min-height:44px; border:1px solid #67816a; border-radius:0; background:transparent; color:var(--ink); font-family:"STKaiti","KaiTi",serif; font-size:18px; cursor:pointer; }
+  .actions button:last-child { background:var(--ink); color:#f4f0e4; }
+  .photo-section { margin-top:38px; padding-top:18px; border-top:1px solid #aab59e88; }
+  .photo-section h2 { margin:0 0 4px; font-size:17px; font-weight:500; }
+  .photo-section p { font-size:11px; color:#71806c; line-height:1.7; margin:0 0 14px; }
+  .upload { display:flex; justify-content:center; align-items:center; position:relative; }
+  .upload input { position:absolute; inset:0; width:100%; opacity:0; cursor:pointer; }
+  .preview { display:none; margin-top:14px; }
+  .preview.visible { display:block; }
+  .preview img { width:100%; max-height:330px; object-fit:cover; display:block; border:8px solid #e9e3d4; }
+  .preview img.enhanced { filter:brightness(1.08) contrast(1.08) saturate(.89) sepia(.1); }
+  .switch { display:flex; gap:8px; margin-top:9px; }
+  .switch button { flex:1; min-height:34px; font-size:13px; }
+  .switch button.on { background:#d9e0cd; }
+  nav { height:58px; position:absolute; bottom:0; left:0; right:0; display:flex; border-top:1px solid #aab59e; background:#f4f0e4eb; }
+  nav span { flex:1; display:flex; justify-content:center; align-items:center; font-size:13px; letter-spacing:1px; }
+  nav span:first-child { border-top:3px solid var(--red); color:var(--red); }
+  @media(max-width:430px) { .stage { padding:0; } .phone { box-shadow:none; min-height:100vh; } }
+</style>
+</head>
+<body>
+<div class="stage"><div class="phone">
+  <header><span class="brand">今天吃什么</span><span class="edition">EAT / NO. 01</span></header>
+  <main>
+    <p class="eyebrow">A LITTLE DECISION</p>
+    <h1>这一顿<br>就吃这个。</h1>
+    <p class="sub">日常里的小小决定，也值得认真对待。</p>
+    <div class="art" aria-hidden="true">
+      <svg viewBox="0 0 270 230" xmlns="http://www.w3.org/2000/svg">
+        <path d="M111 173C117 119 135 66 195 39M154 173C159 109 184 64 195 39M82 176C79 123 70 91 44 72" fill="none" stroke="#6c7651" stroke-width="4" stroke-linecap="round"/>
+        <path d="M195 40C181 16 159 19 146 30C167 37 183 45 195 40ZM196 41C207 17 225 19 238 30C218 37 204 45 196 41Z" fill="#778c62" opacity=".84"/>
+        <path d="M40 71C29 51 14 53 8 66C24 73 34 76 40 71Z" fill="#869969"/>
+        <circle cx="107" cy="179" r="30" fill="#a94349"/><circle cx="152" cy="180" r="31" fill="#c65558"/><circle cx="81" cy="182" r="22" fill="#bd4a51"/>
+        <circle cx="101" cy="170" r="11" fill="#d67575" opacity=".65"/><circle cx="147" cy="170" r="12" fill="#e69188" opacity=".55"/>
+        <path d="M93 199C105 206 117 202 124 194M145 204C158 207 169 202 175 194" fill="none" stroke="#7a323b" stroke-width="3" opacity=".45"/>
+        <circle cx="205" cy="168" r="2" fill="#a94349"/><circle cx="220" cy="185" r="1.5" fill="#a94349"/>
+      </svg>
+    </div>
+    <section class="result"><span class="small">TODAY'S PICK / 抽到了</span><div class="meal">番茄牛肉饭</div><div class="place">二食堂 · 一楼</div><div class="tags"><span>午饭</span><span>热乎乎很治愈</span></div></section>
+    <div class="actions"><button type="button">换一个</button><button type="button">记这一顿</button></div>
+    <section class="photo-section"><h2>照片的小小整理</h2><p>试着上传一张饭照，看看柔和调色的感觉。只在这个预览页处理，不会上传服务器。</p><label class="upload">选一张照片<input id="file" type="file" accept="image/*"></label><div id="preview" class="preview"><img id="photo" alt="上传的照片"><div class="switch"><button id="original" type="button" class="on">原图</button><button id="enhanced" type="button">柔和调色</button></div></div></section>
+  </main>
+  <nav><span>选一顿</span><span>清单</span><span>记录</span></nav>
+</div></div>
+<script>
+const file = document.getElementById('file'), photo = document.getElementById('photo'), preview = document.getElementById('preview')
+let currentUrl = ''
+file.addEventListener('change', () => {
+  if (!file.files[0]) return
+  if (currentUrl) URL.revokeObjectURL(currentUrl)
+  currentUrl = URL.createObjectURL(file.files[0])
+  photo.src = currentUrl
+  preview.classList.add('visible')
+})
+document.getElementById('original').onclick = () => { photo.classList.remove('enhanced'); document.getElementById('original').classList.add('on'); document.getElementById('enhanced').classList.remove('on') }
+document.getElementById('enhanced').onclick = () => { photo.classList.add('enhanced'); document.getElementById('enhanced').classList.add('on'); document.getElementById('original').classList.remove('on') }
+</script>
+</body>
+</html>

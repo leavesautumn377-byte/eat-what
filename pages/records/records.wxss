@@ -1,0 +1,86 @@
+@import "../../assets/watercolor-theme.wxss";
+
+.summary-card {
+  background: transparent;
+  border-color: rgba(76, 117, 58, 0.22);
+}
+.summary-card .soft-label { color: #6d9840; }
+.summary-card .title { color: #24502e; font-size: 58rpx; }
+.summary-card .subtitle { color: #54774c; }
+.summary-card .helper { color: #77926b; margin-top: 16rpx; }
+.stats-row { display: flex; gap: 14rpx; }
+.stats-box {
+  flex: 1;
+  min-width: 0;
+  min-height: 150rpx;
+  padding: 22rpx;
+  box-sizing: border-box;
+  background: #f8faeb;
+  border: 1rpx solid #d6e3b9;
+}
+.stats-box-right { background: #eff4dc; }
+.stats-value { color: #3e6d37; font-size: 54rpx; font-weight: 700; }
+.stats-favorite {
+  color: #315b36;
+  font-size: 30rpx;
+  font-weight: 700;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+.stats-label { color: #81936f; margin-top: 8rpx; font-size: 23rpx; line-height: 1.5; }
+.clear-btn { width: 100%; margin-top: 20rpx; }
+.record-card {
+  padding: 8rpx 0 28rpx;
+  margin-bottom: 26rpx;
+  border-bottom: 1rpx solid #dce8ca;
+}
+.record-card:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.record-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14rpx;
+}
+.record-head > view:first-child { min-width: 0; }
+.record-name {
+  color: #315938;
+  font-size: 34rpx;
+  font-weight: 700;
+  overflow-wrap: break-word;
+}
+.record-meta { color: #819575; font-size: 23rpx; margin-top: 8rpx; }
+.page-records .record-rating {
+  margin-top: 18rpx;
+  color: #355d49;
+  background: transparent;
+  font-size: 30rpx;
+}
+.record-tags { margin-top: 16rpx; }
+.record-photo {
+  width: 100%;
+  height: 300rpx;
+  border-radius: 7rpx;
+  margin-top: 18rpx;
+  background: #e8f1d7;
+}
+.record-note-block {
+  margin-top: 18rpx;
+  padding: 20rpx 22rpx;
+  background: #f3f7e5;
+  border-left: 4rpx solid #99bb69;
+}
+.record-note-label { color: #739459; font-size: 22rpx; }
+.record-note {
+  color: #355d49;
+  font-size: 30rpx;
+  line-height: 1.6;
+  margin-top: 18rpx;
+  overflow-wrap: break-word;
+}
+.record-time { color: #91a383; font-size: 22rpx; }
+.record-footer { margin-top: 20rpx; gap: 12rpx; }
+.page-records .summary-card { margin-bottom: 0; }
+.page-records .record-summary { margin-top: 20rpx; }
+.page-records .clear-btn { width: auto; margin-top: 16rpx; }
+.page-records .summary-card .title { font-size: 76rpx; }
+.page-records .record-name { font-size: 44rpx; font-weight: 400; }

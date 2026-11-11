@@ -1,0 +1,43 @@
+<view class="page page-records">
+  <image class="paper-texture" src="/assets/watercolor-home.jpg" mode="aspectFill" />
+  <view class="card summary-card">
+    <view class="title">{{texts.title}}</view>
+    <view class="subtitle">{{texts.subtitle}}</view>
+    <view class="meta-text record-summary">{{texts.summaryCount}} {{summary.count}} {{texts.summarySuffix}}　{{texts.favoriteLabel}} {{summary.favoriteMealDisplay}}</view>
+    <button wx:if="{{records.length}}" class="btn-light btn-small clear-btn" bindtap="clearRecords">{{texts.clearButton}}</button>
+  </view>
+
+  <view class="card">
+    <view wx:if="{{records.length}}">
+      <view class="record-card" wx:for="{{records}}" wx:key="id">
+        <view class="record-head">
+          <view>
+            <view class="record-name">{{item.mealName}}</view>
+            <view class="record-meta">{{item.displayMeta}}</view>
+          </view>
+        </view>
+
+        <view wx:if="{{item.tags.length}}" class="tag-list record-tags">
+          <view class="tag" wx:for="{{item.tags}}" wx:key="*this">{{item}}</view>
+        </view>
+
+        <image wx:if="{{item.photoPath}}" class="record-photo" src="{{item.photoPath}}" mode="aspectFill" data-path="{{item.photoPath}}" bindtap="previewPhoto" />
+
+        <view wx:if="{{item.rating}}" class="record-rating">{{item.rating}}</view>
+
+        <view wx:if="{{item.note}}" class="record-note">{{item.note}}</view>
+
+        <view class="record-footer">
+          <button class="btn-light btn-small" data-id="{{item.id}}" bindtap="deleteRecord">{{texts.deleteButton}}</button>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="empty">{{texts.listEmpty}}</view>
+  </view>
+  <view class="helper local-hint">{{texts.localHint}}</view>
+</view>
+<view class="bottom-nav">
+  <view class="bottom-nav-item" data-path="/pages/index/index" bindtap="switchMainTab"><text>选一顿</text></view>
+  <view class="bottom-nav-item" data-path="/pages/wheel/wheel" bindtap="switchMainTab"><text>清单</text></view>
+  <view class="bottom-nav-item bottom-nav-item-active"><text>记录</text></view>
+</view>

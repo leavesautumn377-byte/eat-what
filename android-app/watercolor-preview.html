@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>今天吃什么 · 水彩样稿</title>
+<style>
+  @font-face { font-family:MealWenKai; src:url('app/src/main/assets/wenkai-ui.ttf') format('truetype'); }
+  :root { --ink:#294c37; --muted:#55715e; --sage:#6f9277; --line:#9bb4a1; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#e3eadc; font-family:MealWenKai,"STKaiti",serif; color:var(--ink); }
+  .stage { min-height:100vh; display:flex; justify-content:center; padding:22px 12px; }
+  .phone { position:relative; isolation:isolate; width:min(100%,390px); min-height:844px; overflow:hidden; background:#f1f5e9 url('watercolor-bg-v12.png') center / cover no-repeat; box-shadow:0 16px 50px #3a554325; }
+  .phone::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,#f7faee20 0%,#f5f8ef20 42%,#f4f8f2ad 48%,#f7faf8a0 100%); }
+  header { padding:30px 27px 0; display:flex; justify-content:space-between; align-items:center; }
+  .brand { font:18px MealWenKai,"STKaiti",serif; letter-spacing:3px; }
+  .issue { font:10px Georgia,serif; letter-spacing:2px; color:#6b8778; }
+  main { padding:46px 27px 105px; }
+  .hero { height:330px; position:relative; }
+  .eyebrow { font:10px Georgia,serif; color:#6f937c; letter-spacing:3px; margin:0 0 18px; }
+  h1 { font:500 49px/1.32 "STKaiti","KaiTi","Songti SC",serif; letter-spacing:2px; margin:0; }
+  .lead { font-size:13px; line-height:1.9; color:#55715e; max-width:290px; margin:14px 0 0; }
+  .filters { margin-top:0; }
+  .heading { display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid #87a6938c; padding-bottom:10px; margin-bottom:16px; }
+  .heading span:first-child { font:24px MealWenKai,"STKaiti",serif; }
+  .heading span:last-child { color:#77917e; font:10px Georgia,serif; letter-spacing:2px; }
+  .options { display:flex; flex-wrap:wrap; gap:9px 17px; }
+  .option { min-height:44px; border:0; border-bottom:1px solid transparent; padding:8px 4px; background:transparent; color:#3b6648; font:16px MealWenKai,"STKaiti",serif; cursor:pointer; }
+  .option.selected { background:linear-gradient(0deg,#cfe3cfb0,transparent 75%); border-color:#92ad98; }
+  .taste { margin-top:33px; }
+  .count { color:#5a7a62; font-size:12px; margin:21px 2px 13px; }
+  .draw { width:100%; min-height:57px; border:0; border-top:1px solid #c3d9c6; border-bottom:2px solid #8caf94; background:linear-gradient(90deg,#e5f0e4b9,#bfd9c3d9 50%,#e5f0e4b9); color:#315b42; font:24px MealWenKai,"STKaiti",serif; letter-spacing:1px; cursor:pointer; }
+  .note { margin:24px auto 0; text-align:center; color:#78917d; font-size:11px; }
+  nav { position:absolute; bottom:0; left:0; right:0; height:70px; display:flex; align-items:center; background:#f4f8f4b8; backdrop-filter:blur(10px); border-top:1px solid #92ac9b7b; }
+  nav span { flex:1; text-align:center; font-size:16px; color:#6d8a76; }
+  nav span.active { color:#c87972; border-bottom:2px solid #c98780; }
+  @media(max-width:430px) { .stage { padding:0; } .phone { min-height:100vh; box-shadow:none; } }
+</style>
+</head>
+<body><div class="stage"><div class="phone"><header><span class="brand">今天吃什么</span><span class="issue">A MEAL A DAY / 01</span></header><main>
+  <section class="hero" aria-label="事已至此，先吃饭吧"></section>
+  <section class="filters"><div class="heading"><span>时段</span><span>WHEN</span></div><div class="options"><button class="option selected">全部</button><button class="option">早饭</button><button class="option">午饭</button><button class="option">晚饭</button><button class="option">夜宵</button></div></section>
+  <section class="taste"><div class="heading"><span>想吃的</span><span>MOOD</span></div><div class="options"><button class="option">养生易消化</button><button class="option selected">热乎乎很治愈</button><button class="option">碳水让我快乐</button><button class="option">清爽没负担</button></div></section>
+  <div class="count">有 6 样吃的可以选</div><button class="draw">抽一顿</button><p class="note">这一页仅供确认视觉方向，还没有接入真实数据。</p>
+</main><nav><span class="active">选一顿</span><span>清单</span><span>记录</span></nav></div></div></body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/wheel/wheel",
+    "pages/records/records"
+  ],
+  "window": {
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#f2f5eb",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f2f5eb",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#688b72",
+    "selectedColor": "#c87972",
+    "backgroundColor": "#f5f8f0",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "选一顿"
+      },
+      {
+        "pagePath": "pages/wheel/wheel",
+        "text": "清单"
+      },
+      {
+        "pagePath": "pages/records/records",
+        "text": "记录"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

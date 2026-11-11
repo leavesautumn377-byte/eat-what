@@ -1,0 +1,64 @@
+<view class="page page-pick {{screen === 'pick' ? 'page-pick-home' : 'page-inner'}}">
+  <image class="paper-texture" src="/assets/watercolor-home.jpg" mode="aspectFill" />
+  <block wx:if="{{screen === 'pick'}}">
+    <view class="hero-card"><view class="title">{{texts.title}}</view></view>
+    <view class="card filter-card-shell">
+      <view class="section-title">{{texts.mealTimeTitle}}</view>
+      <view class="filter-grid filter-grid-time">
+        <view class="filter-card {{selectedMealTime === '' ? 'filter-card-active' : ''}}" data-value="" bindtap="selectMealTime" hover-class="filter-pressed"><view class="filter-card-title">{{texts.allMealTimes}}</view></view>
+        <view class="filter-card {{selectedMealTime === item ? 'filter-card-active' : ''}}" wx:for="{{mealTimes}}" wx:key="*this" data-value="{{item}}" bindtap="selectMealTime" hover-class="filter-pressed"><view class="filter-card-title">{{item}}</view></view>
+      </view>
+      <view class="row-between tag-head section-gap">
+        <view class="section-title">{{texts.tagTitle}}</view>
+        <button wx:if="{{selectedTags.length}}" class="btn-light btn-small clear-tags-btn" bindtap="clearTags">{{texts.clearTags}}</button>
+      </view>
+      <view class="filter-grid filter-grid-tags">
+        <view class="filter-card filter-card-tag {{item.selected ? 'filter-card-active' : ''}}" wx:for="{{tagOptions}}" wx:key="value" data-value="{{item.value}}" bindtap="toggleTag" hover-class="filter-pressed"><view class="filter-card-title">{{item.value}}</view></view>
+      </view>
+      <button class="btn-primary action-btn full-button" bindtap="chooseMeal" disabled="{{!filteredMeals.length || isSaving || isChoosingPhoto || resultAnimating}}">{{texts.chooseButton}}</button>
+      <view wx:if="{{!meals.length}}" class="empty">{{texts.emptyMeals}}</view>
+      <view wx:elif="{{!filteredMeals.length}}" class="empty">{{texts.noMatches}}</view>
+    </view>
+  </block>
+  <block wx:elif="{{screen === 'result' && resultMeal}}">
+    <button class="back-button" bindtap="backToPick">‹ 返回</button>
+    <view class="card result-shell {{resultMotion}}" id="result-card">
+      <view class="eyebrow">这一顿，交给它</view>
+      <view class="title">{{texts.resultTitle}}</view>
+      <view class="result-name">{{resultMeal.name}}</view>
+      <view wx:if="{{resultMeal.location}}" class="result-location">{{resultMeal.location}}</view>
+      <view class="tag-list result-tags">
+        <view class="tag" wx:for="{{resultMeal.mealTimes}}" wx:key="*this">{{item}}</view>
+        <view class="tag" wx:for="{{resultMeal.tags}}" wx:key="*this">{{item}}</view>
+      </view>
+      <view class="action-row result-actions">
+        <button class="btn-light action-btn" bindtap="rerollMeal" disabled="{{isSaving || isChoosingPhoto || resultAnimating}}">{{texts.rerollButton}}</button>
+        <button class="btn-primary action-btn" bindtap="openRecordPanel" disabled="{{resultRecorded || isSaving || resultAnimating}}">{{resultRecorded ? texts.recordedButton : texts.recordButton}}</button>
+      </view>
+    </view>
+  </block>
+  <block wx:elif="{{screen === 'record' && resultMeal}}">
+    <button class="back-button" bindtap="backToResult">‹ 返回</button>
+    <view class="card record-panel" id="record-panel">
+      <view class="eyebrow">{{resultMeal.name}}</view>
+      <view class="title">{{texts.recordTitle}}</view>
+      <view class="helper record-hint">{{texts.recordHint}}</view>
+      <view class="section-subtitle">{{texts.photoTitle}}</view>
+      <button class="btn-primary add-photo-btn" bindtap="choosePhoto" loading="{{isChoosingPhoto}}" disabled="{{isSaving || isChoosingPhoto}}">{{recordForm.photoPath ? texts.changePhoto : texts.addPhoto}}</button>
+      <view wx:if="{{recordForm.photoPath}}" class="photo-box">
+        <image class="meal-photo" src="{{recordForm.photoPath}}" mode="aspectFill" />
+        <button class="btn-light btn-small remove-photo-btn" bindtap="removePhoto">{{texts.removePhoto}}</button>
+      </view>
+      <view class="section-subtitle">{{texts.ratingTitle}}</view>
+      <view class="pill-row"><view class="pill {{recordForm.rating === item ? 'pill-active' : ''}}" wx:for="{{ratings}}" wx:key="*this" data-value="{{item}}" bindtap="selectRating">{{item}}</view></view>
+      <view class="section-subtitle">{{texts.noteTitle}}</view>
+      <textarea class="textarea" maxlength="200" disabled="{{isSaving}}" placeholder="{{texts.notePlaceholder}}" value="{{recordForm.note}}" bindinput="onNoteInput" />
+      <button class="btn-primary save-btn" bindtap="saveRecord" loading="{{isSaving}}" disabled="{{isSaving || isChoosingPhoto}}">{{texts.saveRecord}}</button>
+    </view>
+  </block>
+</view>
+<view class="bottom-nav">
+  <view class="bottom-nav-item bottom-nav-item-active"><text>选一顿</text></view>
+  <view class="bottom-nav-item" data-path="/pages/wheel/wheel" bindtap="switchMainTab"><text>清单</text></view>
+  <view class="bottom-nav-item" data-path="/pages/records/records" bindtap="switchMainTab"><text>记录</text></view>
+</view>

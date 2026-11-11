@@ -1,0 +1,57 @@
+<view class="page page-list">
+  <image class="paper-texture" src="/assets/watercolor-home.jpg" mode="aspectFill" />
+  <view class="list-content" hidden="{{showForm}}">
+  <view class="row-between list-heading">
+    <view class="title">{{texts.title}}</view>
+    <button class="btn-primary btn-small" bindtap="openAdd">{{texts.add}}</button>
+  </view>
+  <view class="card">
+    <view class="meta-text">{{meals.length}} {{texts.count}}</view>
+    <view wx:if="{{meals.length}}">
+      <view class="meal-item" wx:for="{{meals}}" wx:for-item="meal" wx:key="id">
+        <view class="meal-info">
+          <view class="meal-name">{{meal.name}}</view>
+          <view wx:if="{{meal.location}}" class="meal-location">{{meal.location}}</view>
+          <view class="tag-list meal-tags">
+            <view class="tag" wx:for="{{meal.mealTimes}}" wx:key="*this">{{item}}</view>
+            <view class="tag" wx:for="{{meal.tags}}" wx:key="*this">{{item}}</view>
+          </view>
+        </view>
+        <view class="meal-actions">
+          <button class="btn-light btn-small" data-id="{{meal.id}}" bindtap="editMeal">{{texts.edit}}</button>
+          <button class="btn-light btn-small" data-id="{{meal.id}}" bindtap="deleteMeal">{{texts.remove}}</button>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="empty">{{texts.empty}}</view>
+  </view>
+  </view>
+
+  <view class="form-content" hidden="{{!showForm}}">
+  <button class="back-button" bindtap="cancelEdit">‹ 返回</button>
+  <view class="card meal-form">
+    <view class="title">{{editingId ? texts.editTitle : texts.add}}</view>
+    <view class="section-subtitle">吃什么</view>
+    <input class="input" maxlength="40" placeholder="{{texts.namePlaceholder}}" value="{{mealName}}" bindinput="onMealNameInput" />
+    <view class="section-subtitle">店名 / 食堂名（选填）</view>
+    <input class="input" maxlength="50" placeholder="{{texts.locationPlaceholder}}" value="{{location}}" bindinput="onLocationInput" />
+    <view class="section-subtitle">{{texts.timeTitle}}</view>
+    <view class="helper form-hint">{{texts.timeHint}}</view>
+    <view class="pill-row">
+      <view class="pill {{item.selected ? 'pill-active' : ''}}" wx:for="{{timeOptions}}" wx:key="value" data-value="{{item.value}}" bindtap="toggleMealTime">{{item.value}}</view>
+    </view>
+    <view class="section-subtitle">{{texts.tagTitle}}</view>
+    <view class="pill-row">
+      <view class="pill {{item.selected ? 'pill-active' : ''}}" wx:for="{{tagOptions}}" wx:key="value" data-value="{{item.value}}" bindtap="toggleTag">{{item.value}}</view>
+    </view>
+    <view class="form-actions">
+      <button class="btn-primary" bindtap="saveMeal">{{texts.save}}</button>
+    </view>
+  </view>
+  </view>
+</view>
+<view class="bottom-nav">
+  <view class="bottom-nav-item" data-path="/pages/index/index" bindtap="switchMainTab"><text>选一顿</text></view>
+  <view class="bottom-nav-item bottom-nav-item-active"><text>清单</text></view>
+  <view class="bottom-nav-item" data-path="/pages/records/records" bindtap="switchMainTab"><text>记录</text></view>
+</view>

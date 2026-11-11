@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "value": "离线选择餐食与记录吃饭",
+      "name": "module_desc"
+    },
+    {
+      "value": "今天吃什么",
+      "name": "EntryAbility_desc"
+    },
+    {
+      "value": "今天吃什么",
+      "name": "EntryAbility_label"
+    }
+  ]
+}

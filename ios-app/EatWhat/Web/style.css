@@ -1,0 +1,118 @@
+:root { --ink:#315b37; --soft:#6d8363; --line:#cbdcb0; --active:#dce8c9; --paper:#f7f7e6; }
+* { box-sizing:border-box; }
+html { background:var(--paper); }
+body { margin:0; color:var(--ink); font:15px/1.6 "Songti SC","Noto Serif CJK SC",serif; background:radial-gradient(circle at 10% 8%,#dfeabf 0,transparent 35%),radial-gradient(circle at 94% 36%,#e2efd6 0,transparent 38%),linear-gradient(165deg,#f7f7e6,#eef4dc 58%,#f9f8e9); background-attachment:fixed; }
+button,input,textarea { font:inherit; }
+button { cursor:pointer; }
+#screen { max-width:720px; margin:auto; padding:28px 20px 106px; min-height:100dvh; }
+h1,h2,h3,p { margin-top:0; }
+h1,h2,h3,.name { font-family:"STKaiti","KaiTi","Songti SC",serif; }
+h1 { font-size:38px; letter-spacing:3px; margin:0 0 9px; }
+h2 { font-size:21px; letter-spacing:1px; margin:0 0 14px; }
+h3 { font-size:18px; margin:0 0 10px; }
+.lead { font-size:15px; color:#496b45; line-height:1.8; }
+.section { padding:24px 3px; border-bottom:1px solid #bdd0a9; }
+.section:first-child { padding-top:4px; }
+.section:last-child { border:0; }
+.row { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.chips { display:flex; flex-wrap:wrap; gap:11px 12px; }
+.chip,.tag { border-radius:999px; border:1px solid var(--line); color:#4f7043; background:#f7f9ea; padding:9px 15px; line-height:1.45; }
+.chip.active { background:var(--active); border-color:#9fbd87; color:var(--ink); }
+.tag { display:inline-block; background:#edf3d8; padding:5px 10px; font-size:12px; margin:2px 4px 2px 0; }
+.hint,.meta { color:var(--soft); font-size:13px; }
+.hint { margin:15px 0; }
+.button { border:1px solid #9fbd87; border-radius:999px; background:var(--active); color:var(--ink); min-height:46px; padding:8px 20px; font:600 19px/1.4 "STKaiti","KaiTi",serif; letter-spacing:2px; }
+.button:disabled { opacity:.45; }
+.button.small { min-height:34px; font-size:15px; padding:4px 12px; }
+.actions { display:flex; gap:10px; margin-top:18px; }
+.actions .button { flex:1; min-width:0; }
+.wide { width:100%; }
+.name { font-size:29px; font-weight:700; line-height:1.4; }
+.result-name { font:700 clamp(39px,11vw,64px)/1.35 "STKaiti","KaiTi","Songti SC",serif; margin:28px 0 10px; color:#244e2a; }
+.result-tags { margin:20px 0 30px; }
+.eyebrow { color:#6a9842; font-size:13px; letter-spacing:3px; margin-bottom:10px; }
+.back { border:0; background:none; color:#55764a; font-size:15px; padding:4px 0 20px; }
+.save-button { margin-top:32px; }
+.meal { padding:17px 0; border-bottom:1px solid #d4e0c4; }
+.meal:last-child { border:0; }
+.result { animation:rise .32s ease-out; }
+@keyframes rise { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:none } }
+input[type=text],textarea { width:100%; background:#fffef7; border:1px solid var(--line); border-radius:5px; color:var(--ink); padding:12px; margin:5px 0 12px; outline-color:#9fbd87; }
+textarea { min-height:95px; resize:vertical; }
+label.field { display:block; margin:15px 0 6px; font-weight:600; }
+.photo { display:block; max-width:100%; max-height:280px; margin:14px 0; border-radius:5px; }
+.photo-button { position:relative; overflow:hidden; display:block; text-align:center; }
+.photo-button input { position:absolute; inset:0; opacity:0; width:100%; height:100%; }
+.empty { text-align:center; padding:20px 5px; color:var(--soft); }
+#tabs { position:fixed; bottom:0; left:0; right:0; display:flex; background:#fafbed; border-top:1px solid #dce6d0; padding-bottom:env(safe-area-inset-bottom); box-shadow:0 -4px 18px #315b3710; }
+#tabs button { flex:1; border:0; background:transparent; color:#7c9270; height:56px; font-size:15px; }
+#tabs button.active { color:var(--ink); font-weight:700; border-top:2px solid #91b476; }
+@media (max-width:360px) { #screen { padding-inline:15px; } .chip { padding:8px 12px; } }
+
+@font-face { font-family:MealWenKai; src:url('wenkai-ui.ttf') format('truetype'); font-display:swap; }
+:root { --ink:#355d49; --soft:#688572; --line:#a6c1a9; --active:#d4e7d2; --paper:#f2f5eb; --guava:#c87972; }
+html { background:#f2f5eb; }
+body {
+  min-height:100dvh;
+  font:17px/1.6 MealWenKai,"STKaiti","KaiTi",serif;
+  background:#f2f5eb url('watercolor-home.jpg') center center / cover fixed no-repeat;
+}
+body:not([data-view="pick"]) {
+  background-image:linear-gradient(#f6f8f0d9,#f6f8f0e8),url('watercolor-home.jpg');
+}
+button,input,textarea { font-family:inherit; }
+#screen { max-width:560px; padding:22px 24px 112px; }
+.pick-hero { min-height:max(380px,48vh); padding-top:4px; }
+.hero-kicker { margin:0; color:#587862; font-size:18px; letter-spacing:3px; }
+h1,h2,h3,.name,.result-name { font-family:MealWenKai,"STKaiti","KaiTi",serif; font-weight:400; }
+h1 { font-size:40px; line-height:1.25; }
+h2 { font-size:25px; line-height:1.2; margin-bottom:18px; }
+h3 { font-size:22px; }
+.section { padding:26px 2px; border-color:#8eae9880; }
+.pick-hero + .section { padding-top:18px; }
+.lead { font-size:17px; color:var(--soft); }
+.chip,.tag {
+  border:0;
+  border-bottom:1px solid transparent;
+  background:transparent;
+  color:#426b50;
+  border-radius:0;
+  box-shadow:none;
+}
+.chips { gap:9px 17px; }
+.chip { min-height:44px; padding:8px 4px; font-size:17px; transition:background .2s,transform .2s; }
+.chip.active { border-color:#92ad98; background:linear-gradient(0deg,#cfe3cfb0,transparent 75%); color:#315b42; }
+.chip:active,.button:active { transform:scale(.96); }
+.tag { font-size:14px; background:transparent; padding:3px 7px 3px 0; }
+.hint,.meta { color:var(--soft); font-size:15px; }
+.button {
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:0;
+  border-bottom:1px solid #9dbba4;
+  border-radius:0;
+  background:linear-gradient(90deg,#f7faf4c9,#e2eee0bc 50%,#f7faf4c9);
+  box-shadow:none;
+  color:#335e42;
+  min-height:50px;
+  font:21px/1.25 MealWenKai,"STKaiti",serif;
+  padding:10px 18px;
+  letter-spacing:.5px;
+  transition:transform .2s ease,background .2s ease;
+}
+.button.small { font-size:17px; min-height:38px; padding:5px 12px; }
+.button.wide { min-height:57px; color:#315b42; background:linear-gradient(90deg,#e5f0e4b9,#bfd9c3d9 50%,#e5f0e4b9); border-top:1px solid #c3d9c6; border-bottom:2px solid #8caf94; font-size:24px; }
+.name { font-size:29px; font-weight:400; }
+.result-name { font-size:clamp(39px,10vw,58px); color:var(--ink); }
+.eyebrow { color:var(--guava); font-size:16px; letter-spacing:2px; }
+.back { font-size:18px; color:var(--ink); }
+.meal { border-color:#91b29b83; }
+input[type=text],textarea { background:#fcfdf8d8; border-color:#a4bfaa; border-radius:9px; color:var(--ink); font-size:20px; }
+label.field { font-size:21px; font-weight:400; }
+.photo { border-radius:10px; }
+#tabs { background:#f5f8f0e8; backdrop-filter:blur(10px); border-color:#aabfaf8a; box-shadow:none; }
+#tabs button { font:17px MealWenKai,"STKaiti",serif; height:60px; color:#668b71; }
+#tabs button.active { color:var(--guava); font-weight:400; border-top:0; border-bottom:2px solid #c98780; }
+@media (max-width:360px) { #screen { padding-inline:17px; } .chip { padding-inline:12px; } }

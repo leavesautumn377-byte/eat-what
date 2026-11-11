@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">
+  <defs>
+    <linearGradient id="paper" x2=".2" y2="1"><stop stop-color="#f8f6ec"/><stop offset="1" stop-color="#f2f0e5"/></linearGradient>
+    <radialGradient id="wash"><stop stop-color="#91ad80" stop-opacity=".52"/><stop offset=".55" stop-color="#a7bc94" stop-opacity=".38"/><stop offset="1" stop-color="#b4c7a4" stop-opacity="0"/></radialGradient>
+    <radialGradient id="warm"><stop stop-color="#c1715c" stop-opacity=".33"/><stop offset="1" stop-color="#c1715c" stop-opacity="0"/></radialGradient>
+    <filter id="bleed" x="-35%" y="-35%" width="170%" height="170%"><feGaussianBlur stdDeviation="8"/></filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.5"/></filter>
+    <pattern id="fiber" width="9" height="9" patternUnits="userSpaceOnUse"><path d="M1 2h1M6 7h1M4 4h.5" stroke="#a9ad95" stroke-opacity=".11" stroke-width=".5"/></pattern>
+  </defs>
+  <rect width="390" height="844" fill="url(#paper)"/><rect width="390" height="844" fill="url(#fiber)"/>
+  <!-- One quiet food wash, rather than a separate illustration panel. -->
+  <g opacity=".52">
+    <ellipse cx="346" cy="510" rx="145" ry="180" fill="url(#warm)" filter="url(#bleed)"/>
+    <ellipse cx="331" cy="650" rx="135" ry="125" fill="url(#wash)" filter="url(#bleed)"/>
+    <path d="M214 523c29-35 93-38 142-5 26 17 44 47 42 71-4 49-38 93-92 103-57 11-112-17-125-63-10-36 1-75 33-106z" fill="#d9c9a8" opacity=".32" filter="url(#soft)"/>
+    <path d="M212 579c24 18 47 27 81 29 46 2 82-14 105-38-4 66-37 114-91 121-57 8-109-23-117-73z" fill="#d6cec0" opacity=".35"/>
+    <path d="M199 575c61 57 145 63 197-1" fill="none" stroke="#7c8873" stroke-opacity=".4" stroke-width="5" stroke-linecap="round"/>
+    <path d="M236 551c32-18 62 13 87-3 16-10 32-16 49-8M223 569c39-15 70 17 109 1" fill="none" stroke="#a9755e" stroke-opacity=".45" stroke-width="11" stroke-linecap="round" filter="url(#soft)"/>
+    <path d="M247 533c8-24 31-38 41-42M295 522c14-24 29-28 46-32M334 550c15-21 31-25 42-23" fill="none" stroke="#819778" stroke-opacity=".46" stroke-width="10" stroke-linecap="round" filter="url(#soft)"/>
+    <path d="M255 535c-12-21-9-32 6-45 20 9 20 28-6 45zM302 522c-6-25 4-38 25-39 9 18-1 31-25 39zM342 543c-3-21 7-34 28-38 8 20-5 32-28 38z" fill="#7f9a79" opacity=".48" filter="url(#soft)"/>
+    <path d="M231 506c-5-33 8-44 13-60M266 482c-3-26 6-38 13-48" fill="none" stroke="#94a396" stroke-opacity=".22" stroke-width="4" filter="url(#bleed)"/>
+  </g>
+  <g fill="#294932" font-family="KaiTi,STKaiti,Songti SC,serif">
+    <text x="26" y="48" font-size="20" letter-spacing="3">今天吃什么</text>
+    <text x="27" y="131" font-size="49">下一顿，</text>
+    <text x="27" y="194" font-size="49">就这样定了。</text>
+    <text x="29" y="390" font-size="37">番茄牛肉面</text>
+  </g>
+  <text x="28" y="92" fill="#78916e" font-family="serif" font-size="10" letter-spacing="3">A QUIET MEAL / 01</text>
+  <text x="30" y="226" fill="#68816b" font-family="Songti SC,serif" font-size="13">想吃什么，交给今天的心情。</text>
+  <path d="M27 317h231" stroke="#5f7e5c" stroke-opacity=".3"/>
+  <text x="28" y="350" fill="#69856d" font-family="Songti SC,serif" font-size="12" letter-spacing="2">这一顿抽到了</text>
+  <text x="31" y="419" fill="#69806d" font-family="Songti SC,serif" font-size="12">二食堂 · 午饭 · 热乎乎很治愈</text>
+  <g transform="translate(24 690)">
+    <ellipse cx="85" cy="34" rx="91" ry="35" fill="url(#wash)"/>
+    <ellipse cx="254" cy="34" rx="98" ry="38" fill="url(#wash)"/>
+    <path d="M6 34c35-28 125-33 157-2M174 34c36-30 126-31 162 0" fill="none" stroke="#7f9d76" stroke-width="2" stroke-opacity=".42" filter="url(#soft)"/>
+    <text x="85" y="42" text-anchor="middle" fill="#294932" font-family="KaiTi,STKaiti,serif" font-size="22">换一个</text>
+    <text x="254" y="42" text-anchor="middle" fill="#294932" font-family="KaiTi,STKaiti,serif" font-size="22">记这一顿</text>
+  </g>
+  <path d="M0 793h390" stroke="#8ca58b" stroke-opacity=".34"/>
+  <g font-family="Songti SC,serif" font-size="14" text-anchor="middle"><text x="65" y="829" fill="#315a3d">选一顿</text><text x="195" y="829" fill="#789079">清单</text><text x="325" y="829" fill="#789079">记录</text></g>
+  <ellipse cx="65" cy="796" rx="45" ry="3" fill="#8caa83" opacity=".45" filter="url(#soft)"/>
+</svg>

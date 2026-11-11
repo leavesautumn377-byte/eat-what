@@ -1,0 +1,39 @@
+{
+  "appid": "touristappid",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "./",
+  "projectname": "eat-what-miniapp",
+  "setting": {
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true
+  },
+  "packOptions": {
+    "ignore": [
+      { "type": "folder", "value": "android-app" },
+      { "type": "folder", "value": "ios-app" },
+      { "type": "folder", "value": "harmony-app" },
+      { "type": "folder", "value": "tests" },
+      { "type": "folder", "value": "scripts" },
+      { "type": "folder", "value": "docs" },
+      { "type": "file", "value": "assets/longcang-ui.ttf" },
+      { "type": "file", "value": "assets/wenkai-ui.ttf" },
+      { "type": "file", "value": "assets/hand-font.wxss" },
+      { "type": "file", "value": "assets/paper-texture-v2.jpg" },
+      { "type": "file", "value": "assets/watercolor-paper.jpg" },
+      { "type": "file", "value": "assets/miniapp-avatar-v1.png" },
+      { "type": "file", "value": "assets/miniapp-avatar-v2.png" },
+      { "type": "file", "value": "assets/miniapp-avatar-144-v1.png" },
+      { "type": "file", "value": "assets/miniapp-avatar-144-v2.png" },
+      { "type": "file", "value": "assets/miniapp-avatar-type-v3.png" },
+      { "type": "file", "value": "assets/miniapp-avatar-type-v3-144.png" },
+      { "type": "file", "value": "assets/miniapp-avatar-wheel-v3.png" },
+      { "type": "file", "value": "assets/miniapp-avatar-wheel-v3-144.png" },
+      { "type": "file", "value": "README.md" },
+      { "type": "file", "value": "package.json" },
+      { "type": "file", "value": "project.config.example.json" }
+    ],
+    "include": []
+  }
+}

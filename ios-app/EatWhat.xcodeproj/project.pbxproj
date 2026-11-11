@@ -1,0 +1,232 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C0D3C0D3C0D3C0D3C0D3000C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D3C0D3C0D3C0D3C0D30007 /* AppDelegate.swift */; };
+		C0D3C0D3C0D3C0D3C0D3000D /* MealWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D3C0D3C0D3C0D3C0D30008 /* MealWebViewController.swift */; };
+		C0D3C0D3C0D3C0D3C0D3000E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0D3C0D3C0D3C0D3C0D3000A /* Assets.xcassets */; };
+		C0D3C0D3C0D3C0D3C0D3000F /* Web in Resources */ = {isa = PBXBuildFile; fileRef = C0D3C0D3C0D3C0D3C0D3000B /* Web */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C0D3C0D3C0D3C0D3C0D30006 /* EatWhat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatWhat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0D3C0D3C0D3C0D3C0D30007 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C0D3C0D3C0D3C0D3C0D30008 /* MealWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealWebViewController.swift; sourceTree = "<group>"; };
+		C0D3C0D3C0D3C0D3C0D30009 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0D3C0D3C0D3C0D3C0D3000A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C0D3C0D3C0D3C0D3C0D3000B /* Web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Web; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C0D3C0D3C0D3C0D3C0D30012 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C0D3C0D3C0D3C0D3C0D30003 = {
+			isa = PBXGroup;
+			children = (
+				C0D3C0D3C0D3C0D3C0D30004 /* EatWhat */,
+				C0D3C0D3C0D3C0D3C0D30005 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C0D3C0D3C0D3C0D3C0D30004 /* EatWhat */ = {
+			isa = PBXGroup;
+			children = (
+				C0D3C0D3C0D3C0D3C0D30007 /* AppDelegate.swift */,
+				C0D3C0D3C0D3C0D3C0D30008 /* MealWebViewController.swift */,
+				C0D3C0D3C0D3C0D3C0D30009 /* Info.plist */,
+				C0D3C0D3C0D3C0D3C0D3000A /* Assets.xcassets */,
+				C0D3C0D3C0D3C0D3C0D3000B /* Web */,
+			);
+			path = EatWhat;
+			sourceTree = "<group>";
+		};
+		C0D3C0D3C0D3C0D3C0D30005 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C0D3C0D3C0D3C0D3C0D30006 /* EatWhat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C0D3C0D3C0D3C0D3C0D30002 /* EatWhat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0D3C0D3C0D3C0D3C0D30014 /* Build configuration list for PBXNativeTarget "EatWhat" */;
+			buildPhases = (
+				C0D3C0D3C0D3C0D3C0D30010 /* Sources */,
+				C0D3C0D3C0D3C0D3C0D30012 /* Frameworks */,
+				C0D3C0D3C0D3C0D3C0D30011 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EatWhat;
+			productName = EatWhat;
+			productReference = C0D3C0D3C0D3C0D3C0D30006 /* EatWhat.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C0D3C0D3C0D3C0D3C0D30001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					C0D3C0D3C0D3C0D3C0D30002 = {
+						CreatedOnToolsVersion = 16.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = C0D3C0D3C0D3C0D3C0D30013 /* Build configuration list for PBXProject "EatWhat" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = zh_CN;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				zh_CN,
+				en,
+				Base,
+			);
+			mainGroup = C0D3C0D3C0D3C0D3C0D30003;
+			productRefGroup = C0D3C0D3C0D3C0D3C0D30005 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C0D3C0D3C0D3C0D3C0D30002 /* EatWhat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C0D3C0D3C0D3C0D3C0D30011 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0D3C0D3C0D3C0D3C0D3000E /* Assets.xcassets in Resources */,
+				C0D3C0D3C0D3C0D3C0D3000F /* Web in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C0D3C0D3C0D3C0D3C0D30010 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0D3C0D3C0D3C0D3C0D3000C /* AppDelegate.swift in Sources */,
+				C0D3C0D3C0D3C0D3C0D3000D /* MealWebViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C0D3C0D3C0D3C0D3C0D30015 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C0D3C0D3C0D3C0D3C0D30016 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		C0D3C0D3C0D3C0D3C0D30017 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = EatWhat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.angqi.eatwhat.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		C0D3C0D3C0D3C0D3C0D30018 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = EatWhat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.angqi.eatwhat.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C0D3C0D3C0D3C0D3C0D30013 /* Build configuration list for PBXProject "EatWhat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0D3C0D3C0D3C0D3C0D30015 /* Debug */,
+				C0D3C0D3C0D3C0D3C0D30016 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0D3C0D3C0D3C0D3C0D30014 /* Build configuration list for PBXNativeTarget "EatWhat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0D3C0D3C0D3C0D3C0D30017 /* Debug */,
+				C0D3C0D3C0D3C0D3C0D30018 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C0D3C0D3C0D3C0D3C0D30001 /* Project object */;
+}

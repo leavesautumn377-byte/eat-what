@@ -1,0 +1,9 @@
+{
+  "modelVersion": "6.0.2",
+  "name": "eat-what-harmony",
+  "version": "0.1.0",
+  "description": "今天吃什么：鸿蒙原生离线餐食选择与记录工具",
+  "dependencies": {
+  },
+  "devDependencies": {}
+}
