@@ -58,6 +58,10 @@
 .selected-mark { margin-left: 8rpx; color: #668a51; }
 .tag-head { margin-bottom: 18rpx; gap: 10rpx; }
 .tag-head .section-title { margin-bottom: 0; }
+.budget-row { display: flex; align-items: center; gap: 16rpx; margin-top: 32rpx; color: #4f7043; font-size: 25rpx; }
+.budget-row .section-title { margin: 0 12rpx 0 0; }
+.budget-input { width: 150rpx; height: 66rpx; padding: 0 16rpx; border: 2rpx solid #cbdcb0; border-radius: 999rpx; background: #f7f9ea; color: #315b37; font-size: 27rpx; text-align: center; }
+.budget-hint { color: #718a69; font-size: 22rpx; margin: 10rpx 0 0; }
 .clear-tags-btn { flex-shrink: 0; }
 .summary-row {
   margin-top: 32rpx;
@@ -97,6 +101,7 @@
 .result-location { color: #688164; font-size: 25rpx; margin-top: 8rpx; }
 .result-tags { margin-top: 18rpx; }
 .result-actions { margin-top: 26rpx; }
+.skip-unavailable { display: block; margin: 24rpx auto 0; color: #5d765d; background: rgba(247, 249, 234, 0.55); }
 .record-panel {
   margin-top: 30rpx;
   padding-top: 26rpx;

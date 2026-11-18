@@ -15,7 +15,10 @@
       <view class="filter-grid filter-grid-tags">
         <view class="filter-card filter-card-tag {{item.selected ? 'filter-card-active' : ''}}" wx:for="{{tagOptions}}" wx:key="value" data-value="{{item.value}}" bindtap="toggleTag" hover-class="filter-pressed"><view class="filter-card-title">{{item.value}}</view></view>
       </view>
-      <button class="btn-primary action-btn full-button" bindtap="chooseMeal" disabled="{{!filteredMeals.length || isSaving || isChoosingPhoto || resultAnimating}}">{{texts.chooseButton}}</button>
+      <view class="budget-row"><view class="section-title">预算</view><input class="budget-input" type="digit" maxlength="7" placeholder="不限" value="{{budgetText}}" bindinput="onBudgetInput" /><text class="budget-unit">元以内</text></view>
+      <view wx:if="{{budgetText}}" class="budget-hint">未填价格的餐食暂不参与</view>
+      <button wx:if="{{remainingCount || !filteredMeals.length}}" class="btn-primary action-btn full-button" bindtap="chooseMeal" disabled="{{!remainingCount || isSaving || isChoosingPhoto || resultAnimating}}">{{texts.chooseButton}}</button>
+      <button wx:else class="btn-primary action-btn full-button" bindtap="restartRound">{{texts.restartButton}}</button>
       <view wx:if="{{!meals.length}}" class="empty">{{texts.emptyMeals}}</view>
       <view wx:elif="{{!filteredMeals.length}}" class="empty">{{texts.noMatches}}</view>
     </view>
@@ -27,14 +30,17 @@
       <view class="title">{{texts.resultTitle}}</view>
       <view class="result-name">{{resultMeal.name}}</view>
       <view wx:if="{{resultMeal.location}}" class="result-location">{{resultMeal.location}}</view>
+      <view wx:if="{{resultMeal.price !== null}}" class="result-location">约 ¥{{resultMeal.price}}</view>
       <view class="tag-list result-tags">
         <view class="tag" wx:for="{{resultMeal.mealTimes}}" wx:key="*this">{{item}}</view>
         <view class="tag" wx:for="{{resultMeal.tags}}" wx:key="*this">{{item}}</view>
       </view>
       <view class="action-row result-actions">
-        <button class="btn-light action-btn" bindtap="rerollMeal" disabled="{{isSaving || isChoosingPhoto || resultAnimating}}">{{texts.rerollButton}}</button>
+      <button wx:if="{{remainingCount}}" class="btn-light action-btn" bindtap="rerollMeal" disabled="{{isSaving || isChoosingPhoto || resultAnimating}}">{{texts.rerollButton}}</button>
+      <button wx:else class="btn-light action-btn" bindtap="restartRound" disabled="{{isSaving || isChoosingPhoto || resultAnimating}}">{{texts.restartButton}}</button>
         <button class="btn-primary action-btn" bindtap="openRecordPanel" disabled="{{resultRecorded || isSaving || resultAnimating}}">{{resultRecorded ? texts.recordedButton : texts.recordButton}}</button>
       </view>
+      <button class="btn-light btn-small skip-unavailable" bindtap="skipUnavailable" disabled="{{isSaving || isChoosingPhoto || resultAnimating}}">{{texts.unavailableButton}}</button>
     </view>
   </block>
   <block wx:elif="{{screen === 'record' && resultMeal}}">

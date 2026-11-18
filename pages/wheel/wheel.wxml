@@ -12,6 +12,7 @@
         <view class="meal-info">
           <view class="meal-name">{{meal.name}}</view>
           <view wx:if="{{meal.location}}" class="meal-location">{{meal.location}}</view>
+          <view wx:if="{{meal.price !== null}}" class="meal-location">约 ¥{{meal.price}}</view>
           <view class="tag-list meal-tags">
             <view class="tag" wx:for="{{meal.mealTimes}}" wx:key="*this">{{item}}</view>
             <view class="tag" wx:for="{{meal.tags}}" wx:key="*this">{{item}}</view>
@@ -35,6 +36,8 @@
     <input class="input" maxlength="40" placeholder="{{texts.namePlaceholder}}" value="{{mealName}}" bindinput="onMealNameInput" />
     <view class="section-subtitle">店名 / 食堂名（选填）</view>
     <input class="input" maxlength="50" placeholder="{{texts.locationPlaceholder}}" value="{{location}}" bindinput="onLocationInput" />
+    <view class="section-subtitle">大概价格（选填）</view>
+    <input class="input" type="digit" maxlength="7" placeholder="例如 15 元" value="{{priceText}}" bindinput="onPriceInput" />
     <view class="section-subtitle">{{texts.timeTitle}}</view>
     <view class="helper form-hint">{{texts.timeHint}}</view>
     <view class="pill-row">

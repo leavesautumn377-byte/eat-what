@@ -153,12 +153,89 @@ test('multiple tags use AND matching and dislike ratings do not remove meals', (
   assert.equal(options.filterMeals(meals, '', []).length, meals.length)
 })
 
+test('optional prices filter by budget without guessing prices for old meals', () => {
+  const env = environment()
+  const storage = env.load('utils/storage.js')
+  const options = env.load('utils/options.js')
+  const [first, second] = storage.getMeals()
+  assert.equal(first.price, null)
+  storage.updateMeal(first.id, { price: 15.5 })
+  storage.updateMeal(second.id, { price: 25 })
+  const meals = storage.getMeals()
+  assert.equal(meals.find((meal) => meal.id === first.id).price, 15.5)
+  assert.equal(options.filterMeals(meals, '', [], 20).length, 1)
+  assert.equal(options.filterMeals(meals, '', [], 20)[0].id, first.id)
+  assert.equal(options.filterMeals(meals, '', [], null).length, meals.length)
+  storage.addRecord({ mealId: first.id, mealName: first.name, price: 15.5 })
+  storage.updateMeal(first.id, { price: 30 })
+  assert.equal(storage.getRecords()[0].price, 15.5)
+})
+
+test('mini-program budget changes the draw pool and clearing it restores all meals', () => {
+  const env = environment()
+  const storage = env.load('utils/storage.js')
+  storage.getMeals()
+  storage.saveMeals([
+    { id: 'a', name: '便宜饭', location: '一食堂', price: 12, mealTimes: ['午饭'], tags: [] },
+    { id: 'b', name: '贵饭', location: '一食堂', price: 30, mealTimes: ['午饭'], tags: [] },
+    { id: 'c', name: '未标价', location: '一食堂', mealTimes: ['午饭'], tags: [] }
+  ])
+  const page = env.page('index')
+  page.onShow()
+  page.onBudgetInput({ detail: { value: '20' } })
+  assert.deepEqual(plain(page.data.filteredMeals.map((meal) => meal.id)), ['a'])
+  page.chooseMeal()
+  assert.equal(page.data.resultMeal.id, 'a')
+  page.onBudgetInput({ detail: { value: '' } })
+  assert.equal(page.data.filteredMeals.length, 3)
+})
+
 test('reroll excludes current meal when alternatives exist', () => {
   const options = environment().load('utils/options.js')
   const meals = [{ id: 'a' }, { id: 'b' }]
   for (let i = 0; i < 30; i++) assert.equal(options.pickMeal(meals, 'a').id, 'b')
   assert.equal(options.pickMeal([meals[0]], 'a').id, 'a')
   assert.equal(options.pickMeal([], ''), null)
+})
+
+test('recent three recorded meals are skipped when another choice exists', () => {
+  const options = environment().load('utils/options.js')
+  const meals = [
+    { id: 'a', name: 'A', location: '一食堂' },
+    { id: 'b', name: 'B', location: '一食堂' },
+    { id: 'c', name: 'C', location: '一食堂' },
+    { id: 'd', name: 'D', location: '一食堂' }
+  ]
+  const records = [
+    { mealId: 'a' }, { mealId: 'b' }, { mealId: 'c' }, { mealId: 'd' }
+  ]
+  assert.equal(options.pickMeal(meals, '', records).id, 'd')
+  assert.equal(options.pickMeal(meals.slice(0, 2), 'a', records).id, 'b')
+  assert.equal(options.pickMeal([meals[0]], '', records).id, 'a')
+})
+
+test('older records without meal IDs match only the same name and place', () => {
+  const options = environment().load('utils/options.js')
+  const meals = [
+    { id: 'a', name: '煎饼', location: '一食堂' },
+    { id: 'b', name: '煎饼', location: '二食堂' }
+  ]
+  assert.equal(options.pickMeal(meals, '', [{ mealName: '煎饼', location: '一食堂' }]).id, 'b')
+})
+
+test('mini-program draw uses saved records to avoid a just-eaten meal', () => {
+  const env = environment()
+  const storage = env.load('utils/storage.js')
+  storage.getMeals()
+  storage.saveMeals([
+    { id: 'a', name: '煎饼', location: '一食堂', mealTimes: ['早饭'], tags: [] },
+    { id: 'b', name: '包子', location: '一食堂', mealTimes: ['早饭'], tags: [] }
+  ])
+  storage.saveRecords([{ mealId: 'a', mealName: '煎饼', location: '一食堂' }])
+  const page = env.page('index')
+  page.onShow()
+  page.chooseMeal()
+  assert.equal(page.data.resultMeal.id, 'b')
 })
 
 test('mini-program pick, result and record use separate screens', () => {
@@ -216,6 +293,42 @@ test('reroll fades the old result, then reveals a different meal', async () => {
   assert.equal(page.data.resultAnimating, false)
   assert.equal(page.data.resultMotion, 'result-enter')
   assert.notEqual(page.data.resultMeal.id, firstId)
+})
+
+test('mini-program never repeats within a round and lets the user restart', async () => {
+  const env = environment()
+  const storage = env.load('utils/storage.js')
+  storage.getMeals()
+  storage.saveMeals(['a', 'b', 'c'].map((id) => ({ id, name: id, location: '一食堂', mealTimes: ['午饭'], tags: [] })))
+  const page = env.page('index')
+  page.onShow()
+  page.chooseMeal()
+  const seen = [page.data.resultMeal.id]
+  page.rerollMeal()
+  await new Promise((resolve) => setTimeout(resolve, 220))
+  seen.push(page.data.resultMeal.id)
+  page.skipUnavailable()
+  await new Promise((resolve) => setTimeout(resolve, 220))
+  seen.push(page.data.resultMeal.id)
+  assert.equal(new Set(seen).size, 3)
+  assert.equal(page.data.remainingCount, 0)
+  page.skipUnavailable()
+  assert.equal(page.data.screen, 'pick')
+  assert.equal(page.data.resultMeal, null)
+  page.restartRound()
+  assert.equal(page.data.remainingCount, 3)
+  assert.deepEqual(plain(page.data.unavailableMealIds), [])
+})
+
+test('changing mini-program filters starts a fresh round', () => {
+  const page = environment().page('index')
+  page.onShow()
+  page.chooseMeal()
+  assert.equal(page.data.seenMealIds.length, 1)
+  page.selectMealTime(tap('午饭'))
+  assert.equal(page.data.seenMealIds.length, 0)
+  assert.equal(page.data.unavailableMealIds.length, 0)
+  assert.equal(page.data.remainingCount, page.data.filteredMeals.length)
 })
 
 test('changing filters cancels an in-flight reroll', async () => {

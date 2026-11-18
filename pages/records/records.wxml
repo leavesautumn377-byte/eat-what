@@ -14,6 +14,7 @@
           <view>
             <view class="record-name">{{item.mealName}}</view>
             <view class="record-meta">{{item.displayMeta}}</view>
+            <view wx:if="{{item.price !== null}}" class="record-meta">约 ¥{{item.price}}</view>
           </view>
         </view>
 

@@ -37,6 +37,12 @@ function visibleTags(value) {
     .map((tag) => TAG_ALIASES[tag] || tag))]
 }
 
+function normalizePrice(value) {
+  if (value === '' || value === null || value === undefined) return null
+  const price = Number(value)
+  return Number.isFinite(price) && price >= 0 && price <= 999.99 ? Math.round(price * 100) / 100 : null
+}
+
 function normalizeMeal(item) {
   const legacyTags = {
     '面食': ['面食'], '米饭': ['米饭'], '正餐': ['米饭'], '减脂': ['轻食', '养生']
@@ -47,6 +53,7 @@ function normalizeMeal(item) {
     id: item.id ? String(item.id) : createId(),
     name: text(item.name, '未命名餐食'),
     location: text(item.location),
+    price: normalizePrice(item.price),
     mealTimes: times.length ? times : item.category === '早饭' ? ['早饭'] : MEAL_TIMES.slice(),
     tags: Array.isArray(item.tags) ? visibleTags(item.tags) : legacyTags[item.category] || []
   }
@@ -59,6 +66,7 @@ function normalizeRecord(item) {
     mealId: item.mealId ? String(item.mealId) : '',
     mealName: text(item.mealName, '未命名餐食'),
     location: text(item.location),
+    price: normalizePrice(item.price),
     mealTime: text(item.mealTime),
     tags: visibleTags(item.tags),
     rating: text(item.rating),

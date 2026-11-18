@@ -8,9 +8,13 @@ Page({
     screen: 'pick',
     meals: [],
     filteredMeals: [],
+    seenMealIds: [],
+    unavailableMealIds: [],
+    remainingCount: 0,
     recentRecords: [],
     selectedMealTime: '',
     selectedTags: [],
+    budgetText: '',
     resultMeal: null,
     resultMotion: '',
     resultAnimating: false,
@@ -38,6 +42,8 @@ Page({
       candidateSuffix: '样',
       chooseButton: '抽一顿',
       rerollButton: '\u6362\u4e00\u4e2a',
+      unavailableButton: '现在不方便',
+      restartButton: '重新抽一轮',
       resultTitle: '抽到了',
       recordButton: '\u8bb0\u8fd9\u4e00\u987f',
       recordTitle: '记录这一顿',
@@ -104,7 +110,7 @@ Page({
         ...item,
         displayMeta: `${item.location || item.source} / ${item.dateText} ${item.timeText}`
       }))
-      const filteredMeals = options.filterMeals(meals, this.data.selectedMealTime, this.data.selectedTags)
+      const filteredMeals = options.filterMeals(meals, this.data.selectedMealTime, this.data.selectedTags, this.getBudget())
       const resultMeal = this.data.resultMeal
         ? filteredMeals.find((meal) => meal.id === this.data.resultMeal.id) || null
         : null
@@ -134,6 +140,8 @@ Page({
     const value = e.currentTarget.dataset.value
     this.setData({
       selectedMealTime: value,
+      seenMealIds: [],
+      unavailableMealIds: [],
       screen: 'pick',
       resultMeal: null,
       lastResultId: '',
@@ -158,6 +166,8 @@ Page({
 
     this.setData({
       selectedTags: tags,
+      seenMealIds: [],
+      unavailableMealIds: [],
       screen: 'pick',
       resultMeal: null,
       lastResultId: '',
@@ -172,6 +182,8 @@ Page({
     this.releaseDraftPhoto()
     this.setData({
       selectedTags: [],
+      seenMealIds: [],
+      unavailableMealIds: [],
       screen: 'pick',
       resultMeal: null,
       lastResultId: '',
@@ -180,11 +192,28 @@ Page({
     this.applyFilters()
   },
 
+  getBudget() {
+    const value = this.data.budgetText.trim()
+    const budget = Number(value)
+    return value && Number.isFinite(budget) && budget >= 0 ? budget : null
+  },
+
+  onBudgetInput(e) {
+    if (this.data.isSaving || this.data.isChoosingPhoto) return
+    const value = e.detail.value
+    if (value && (!/^\d{0,3}(\.\d{0,2})?$/.test(value) || Number(value) > 999.99)) return this.data.budgetText
+    this.cancelResultAnimation()
+    this.releaseDraftPhoto()
+    this.setData({ budgetText: value, seenMealIds: [], unavailableMealIds: [], screen: 'pick', resultMeal: null, lastResultId: '', showRecordPanel: false })
+    this.applyFilters()
+  },
+
   applyFilters() {
-    const filteredMeals = options.filterMeals(this.data.meals, this.data.selectedMealTime, this.data.selectedTags)
+    const filteredMeals = options.filterMeals(this.data.meals, this.data.selectedMealTime, this.data.selectedTags, this.getBudget())
 
     this.setData({
       filteredMeals,
+      remainingCount: filteredMeals.filter((meal) => !this.data.seenMealIds.includes(meal.id) && !this.data.unavailableMealIds.includes(meal.id)).length,
       tagOptions: options.optionItems(options.TAGS, this.data.selectedTags)
     })
   },
@@ -197,24 +226,40 @@ Page({
     this.pickMeal(true)
   },
 
+  skipUnavailable() {
+    if (!this.data.resultMeal || this.data.isSaving || this.data.isChoosingPhoto || this.data.resultAnimating) return
+    const id = this.data.resultMeal.id
+    this.setData({ unavailableMealIds: [...new Set([...this.data.unavailableMealIds, id])] })
+    this.applyFilters()
+    if (this.data.remainingCount) {
+      this.pickMeal(true)
+    } else {
+      this.releaseDraftPhoto()
+      this.setData({ screen: 'pick', resultMeal: null, showRecordPanel: false })
+      wx.pageScrollTo({ scrollTop: 0, duration: 220 })
+    }
+  },
+
+  restartRound() {
+    if (this.data.isSaving || this.data.isChoosingPhoto || this.data.resultAnimating) return
+    this.releaseDraftPhoto()
+    this.setData({ seenMealIds: [], unavailableMealIds: [], resultMeal: null, lastResultId: '', screen: 'pick', showRecordPanel: false })
+    this.applyFilters()
+  },
+
   pickMeal(excludeCurrent) {
     if (this.data.isSaving || this.data.isChoosingPhoto || this.data.resultAnimating) return
-    const candidates = this.data.filteredMeals
+    const candidates = this.data.filteredMeals.filter((meal) => !this.data.seenMealIds.includes(meal.id) && !this.data.unavailableMealIds.includes(meal.id))
 
     if (!candidates.length) {
       wx.showToast({
-        title: '\u8fd9\u4e2a\u7b5b\u9009\u6761\u4ef6\u4e0b\u8fd8\u6ca1\u6709\u53ef\u9009\u5185\u5bb9',
+        title: this.data.filteredMeals.length ? '这轮都看过了，重新抽一轮吧' : '\u8fd9\u4e2a\u7b5b\u9009\u6761\u4ef6\u4e0b\u8fd8\u6ca1\u6709\u53ef\u9009\u5185\u5bb9',
         icon: 'none'
       })
       return
     }
 
-    if (excludeCurrent && candidates.length === 1 && this.data.resultMeal) {
-      wx.showToast({ title: '只有这一样，试试放宽筛选', icon: 'none' })
-      return
-    }
-
-    const chosenMeal = options.pickMeal(candidates, this.data.resultMeal ? this.data.lastResultId : '')
+    const chosenMeal = options.pickMeal(candidates, this.data.resultMeal ? this.data.lastResultId : '', storage.getRecords())
     if (this.data.resultMeal) {
       this.setData({ resultAnimating: true, resultMotion: 'result-leave' })
       this.resultTimer = setTimeout(() => {
@@ -231,6 +276,8 @@ Page({
     this.releaseDraftPhoto()
     this.setData({
       resultMeal: chosenMeal,
+      seenMealIds: [...this.data.seenMealIds, chosenMeal.id],
+      remainingCount: this.data.remainingCount - 1,
       screen: 'result',
       resultMotion: 'result-enter',
       resultAnimating: false,
@@ -328,6 +375,7 @@ Page({
         mealId: meal.id,
         mealName: meal.name,
         location: meal.location,
+        price: meal.price,
         mealTime: this.data.selectedMealTime,
         tags: meal.tags,
         rating: this.data.recordForm.rating,

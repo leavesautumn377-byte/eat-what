@@ -4,7 +4,7 @@ const { showError } = require('../../utils/feedback')
 
 Page({
   data: {
-    meals: [], showForm: false, editingId: '', mealName: '', location: '',
+    meals: [], showForm: false, editingId: '', mealName: '', location: '', priceText: '',
     selectedMealTimes: [], selectedTags: [],
     timeOptions: optionItems(MEAL_TIMES, []),
     tagOptions: optionItems(TAGS, []),
@@ -41,7 +41,7 @@ Page({
 
   openAdd() {
     this.setData({
-      showForm: true, editingId: '', mealName: '', location: '',
+      showForm: true, editingId: '', mealName: '', location: '', priceText: '',
       selectedMealTimes: [], selectedTags: []
     })
     this.refreshOptions()
@@ -53,6 +53,7 @@ Page({
     if (!meal) return
     this.setData({
       showForm: true, editingId: meal.id, mealName: meal.name, location: meal.location,
+      priceText: meal.price === null ? '' : String(meal.price),
       selectedMealTimes: meal.mealTimes.slice(), selectedTags: meal.tags.filter((tag) => TAGS.includes(tag))
     })
     this.refreshOptions()
@@ -65,6 +66,7 @@ Page({
 
   onMealNameInput(e) { this.setData({ mealName: e.detail.value }) },
   onLocationInput(e) { this.setData({ location: e.detail.value }) },
+  onPriceInput(e) { this.setData({ priceText: e.detail.value }) },
   toggleMealTime(e) { this.toggleValue('selectedMealTimes', e.currentTarget.dataset.value) },
   toggleTag(e) { this.toggleValue('selectedTags', e.currentTarget.dataset.value) },
 
@@ -84,8 +86,14 @@ Page({
       wx.showToast({ title: '先写一个名称', icon: 'none' })
       return
     }
+    const rawPrice = this.data.priceText.trim()
+    const price = Number(rawPrice)
+    if (rawPrice && (!Number.isFinite(price) || price < 0 || price > 999.99 || !/^\d+(\.\d{1,2})?$/.test(rawPrice))) {
+      wx.showToast({ title: '价格填 0～999.99 元', icon: 'none' })
+      return
+    }
     const payload = {
-      name, location,
+      name, location, price: rawPrice ? price : null,
       mealTimes: this.data.selectedMealTimes.length ? this.data.selectedMealTimes : MEAL_TIMES,
       tags: this.data.selectedTags
     }
@@ -93,7 +101,7 @@ Page({
       const meals = this.data.editingId
         ? storage.updateMeal(this.data.editingId, payload)
         : storage.addMeal(payload)
-      this.setData({ meals, showForm: false, editingId: '', mealName: '', location: '' })
+      this.setData({ meals, showForm: false, editingId: '', mealName: '', location: '', priceText: '' })
       wx.showToast({ title: '已保存', icon: 'success' })
     } catch (error) { showError(error) }
   },

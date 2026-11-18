@@ -7,7 +7,7 @@ const path = require('node:path')
 const script = fs.readFileSync(path.join(__dirname, '..', 'android-app', 'app', 'src', 'main', 'assets', 'app.js'), 'utf8')
 
 function app(saved = new Map()) {
-  const nodes = { screen: { innerHTML: '', textContent: '' } }
+  const nodes = { screen: { innerHTML: '', textContent: '' }, notice: { textContent: '', className: '', hidden: true } }
   const handlers = {}
   const document = {
     getElementById(id) { return nodes[id] || null },
@@ -15,7 +15,7 @@ function app(saved = new Map()) {
     addEventListener(name, handler) { handlers[name] = handler },
     createElement() { throw new Error('Not expected in this test') }
   }
-  const context = vm.createContext({ document, localStorage: { getItem: key => saved.has(key) ? saved.get(key) : null, setItem: (key, value) => saved.set(key, value) }, window: { scrollTo() {} }, alert() {}, confirm() { return true }, Date, Math, Image: class {}, URL })
+  const context = vm.createContext({ document, localStorage: { getItem: key => saved.has(key) ? saved.get(key) : null, setItem: (key, value) => saved.set(key, value) }, window: { scrollTo() {} }, alert() { throw new Error('A native alert should not appear') }, confirm() { return true }, setTimeout() { return 1 }, clearTimeout() {}, Date, Math, Image: class {}, URL })
   vm.runInContext(script, context)
   function click(action, value, id) {
     handlers.click({ target: { closest(selector) { return selector === '[data-action]' ? { dataset: { action, value, id } } : null } } })
@@ -23,8 +23,34 @@ function app(saved = new Map()) {
   function tab(name) {
     handlers.click({ target: { closest(selector) { return selector === '[data-tab]' ? { dataset: { tab: name } } : null } } })
   }
-  return { nodes, saved, click, tab }
+  function input(id, value) { handlers.input({ target: { id, value } }) }
+  return { nodes, saved, click, tab, input }
 }
+
+test('Android app saves approximate prices and draws within a budget', () => {
+  const saved = new Map([['eatwhat.android.v1', JSON.stringify({
+    seedVersion: 'campus-20-v3',
+    meals: [
+      { id: 'a', name: '便宜饭', location: '一食堂', price: 12, mealTimes: ['午饭'], tags: [] },
+      { id: 'b', name: '贵饭', location: '一食堂', price: 30, mealTimes: ['午饭'], tags: [] },
+      { id: 'c', name: '未标价', location: '一食堂', mealTimes: ['午饭'], tags: [] }
+    ], records: []
+  })]])
+  const instance = app(saved)
+  instance.input('budget', '20')
+  instance.click('pick')
+  assert.match(instance.nodes.screen.innerHTML, /便宜饭/)
+  instance.click('record-open')
+  instance.click('save-record')
+  assert.equal(JSON.parse(saved.get('eatwhat.android.v1')).records[0].price, 12)
+  instance.tab('list')
+  instance.click('edit', undefined, 'a')
+  assert.match(instance.nodes.screen.innerHTML, /value="12"/)
+  instance.input('price', '18.5')
+  instance.click('save-meal')
+  assert.equal(JSON.parse(saved.get('eatwhat.android.v1')).meals[0].price, 18.5)
+  assert.equal(JSON.parse(saved.get('eatwhat.android.v1')).records[0].price, 12)
+})
 
 test('Android test app starts with sample meals and can draw again', () => {
   const instance = app()
@@ -40,6 +66,53 @@ test('Android test app starts with sample meals and can draw again', () => {
   assert.doesNotMatch(instance.nodes.screen.innerHTML, /换一个/)
   instance.click('back')
   assert.match(instance.nodes.screen.innerHTML, /换一个/)
+})
+
+test('saving a record shows a gentle in-page notice instead of a native alert', () => {
+  const instance = app()
+  instance.click('pick')
+  instance.click('record-open')
+  instance.click('save-record')
+  assert.match(instance.nodes.screen.innerHTML, /用餐记录/)
+  assert.equal(instance.nodes.notice.textContent, '这一顿，记下来了')
+  assert.equal(instance.nodes.notice.hidden, false)
+  assert.equal(instance.nodes.notice.className, 'notice')
+})
+
+test('Android draw skips a recently eaten meal and falls back for a narrow list', () => {
+  const saved = new Map([['eatwhat.android.v1', JSON.stringify({
+    seedVersion: 'campus-20-v3',
+    meals: [
+      { id: 'a', name: '煎饼', location: '一食堂', mealTimes: ['早饭'], tags: [] },
+      { id: 'b', name: '包子', location: '一食堂', mealTimes: ['早饭'], tags: [] }
+    ],
+    records: [{ mealId: 'a', mealName: '煎饼', location: '一食堂' }]
+  })]])
+  const instance = app(saved)
+  instance.click('pick')
+  assert.match(instance.nodes.screen.innerHTML, /包子/)
+  instance.click('pick')
+  assert.match(instance.nodes.screen.innerHTML, /煎饼/)
+})
+
+test('Android draw does not repeat in one round and skips an inconvenient meal', () => {
+  const saved = new Map([['eatwhat.android.v1', JSON.stringify({
+    seedVersion: 'campus-20-v3',
+    meals: ['a', 'b', 'c'].map(id => ({ id, name: `饭${id}`, location: '一食堂', mealTimes: ['午饭'], tags: [] })),
+    records: []
+  })]])
+  const instance = app(saved)
+  instance.click('pick')
+  const first = instance.nodes.screen.innerHTML.match(/result-name">(饭.)</)[1]
+  instance.click('pick')
+  const second = instance.nodes.screen.innerHTML.match(/result-name">(饭.)</)[1]
+  instance.click('skip-unavailable')
+  const third = instance.nodes.screen.innerHTML.match(/result-name">(饭.)</)[1]
+  assert.equal(new Set([first, second, third]).size, 3)
+  instance.click('skip-unavailable')
+  assert.match(instance.nodes.screen.innerHTML, /重新抽一轮/)
+  instance.click('restart-round')
+  assert.match(instance.nodes.screen.innerHTML, /本轮可选 3 样/)
 })
 
 test('meal editor opens separately from the list and bottom tabs return to main pages', () => {
